@@ -21,11 +21,13 @@ const config: Config = {
           dark: "#1A5E66",
         },
         secondary: "#3B4B62",
+        tertiary: "#97D1DB",
         white: "#FFFFFF",
       },
     },
     fontFamily: {
       righteous: ["var(--font-righteous)"],
+      openSans: ["var(--font-open-sans)"],
     },
   },
   plugins: [nextui()],

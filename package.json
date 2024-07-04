@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
-    "eslint-plugin-tsc": "^2.0.0",
     "framer-motion": "^10.16.16",
     "husky": "^9.0.7",
     "iconsax-react": "^0.0.8",
@@ -29,6 +28,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.16",
+    "encoding": "^0.1.13",
     "commitlint": "^17.7.1",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.0.4",
