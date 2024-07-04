@@ -19,12 +19,16 @@ const CallToAction = () => {
           Y accedé a mucho contenido sobre ...
         </h3>
         <div className="mt-8 flex justify-center gap-4">
-          <Link href="https://www.instagram.com/fluidamente" target="_blank">
-            <Instagram size="3rem" className="text-secondary" variant="Bold" />
+          <Link href="https://www.instagram.com/_fluidamente" target="_blank">
+            <Instagram
+              size="3rem"
+              className="text-secondary transition-all duration-300 ease-in-out hover:scale-110 hover:text-white"
+              variant="Bold"
+            />
           </Link>
-          <Link href="https://www.facebook.com/fluidamente" target="_blank">
-            <Facebook size="3rem" className="text-secondary" variant="Bold" />
-          </Link>
+          {/* <Link href="https://www.facebook.com/_fluidamente" target="_blank">
+            <Facebook size="3rem" className="text-secondary transition-all duration-300 ease-in-out hover:scale-110 hover:text-white" variant="Bold" />
+          </Link> */}
         </div>
         <div className="absolute bottom-0 left-0 mt-5 flex justify-center gap-4 p-3">
           <Image src="/images/mind_puzzle.png" width={100} height={100} />
