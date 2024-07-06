@@ -4,7 +4,7 @@ import ServiceCard from "./ServiceCard";
 const Services: React.FC = () => {
   return (
     <div className=" mx-auto mt-10 flex  w-[80%] max-w-[1200px] flex-col items-center justify-center ">
-      <h2 className="py-6 font-righteous text-4xl text-primary-dark">
+      <h2 className="py-6 font-poppins text-4xl text-primary-dark">
         Servicios
       </h2>
       <div className=" align-items-center grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2">

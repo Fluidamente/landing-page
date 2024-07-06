@@ -1,21 +1,22 @@
 import React, { PropsWithChildren } from "react";
 import type { Metadata } from "next";
-import { Righteous, Open_Sans } from "next/font/google";
+import { Raleway, Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./utils/providers";
 import NavbarApp from "./_components/NavbarApp";
 
-const righteous = Righteous({
+const poppins = Poppins({
   subsets: ["latin-ext"],
   weight: "400",
   style: "normal",
-  variable: "--font-righteous",
+  variable: "--font-poppins",
 });
-const openSans = Open_Sans({
+
+const raleway = Raleway({
   subsets: ["latin-ext"],
   weight: "400",
   style: "normal",
-  variable: "--font-open-sans",
+  variable: "--font-raleway",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="es">
-      <body className={`${righteous.variable} ${openSans.variable} font-sans`}>
+      <body className={`${poppins.variable} ${raleway.variable} font-sans`}>
         <NavbarApp />
         <Providers>{children}</Providers>
       </body>

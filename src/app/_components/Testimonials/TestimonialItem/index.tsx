@@ -36,7 +36,7 @@ const TestimonialItem = ({
             {testimonial?.content?.map((c, index) => (
               <p
                 key={index}
-                className="pt-10 text-center font-openSans text-lg font-normal text-white"
+                className="pt-10 text-center font-raleway text-lg font-normal text-white"
               >
                 {c}
               </p>
