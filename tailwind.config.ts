@@ -26,8 +26,8 @@ const config: Config = {
       },
     },
     fontFamily: {
-      righteous: ["var(--font-righteous)"],
-      openSans: ["var(--font-open-sans)"],
+      raleway: ["var(--font-raleway)"],
+      poppins: ["var(--font-poppins)"],
     },
   },
   plugins: [nextui()],

@@ -3,6 +3,7 @@ import AboutMe from "./_components/AboutMe/index";
 import Services from "./_components/Services";
 import CallToAction from "./_components/CallToAction";
 import Testimonials from "./_components/Testimonials";
+import ContactForm from "./_components/ContactForm";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Services />
       <Testimonials />
       <CallToAction />
+      <ContactForm />
     </main>
   );
 }

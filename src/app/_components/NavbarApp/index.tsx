@@ -1,17 +1,15 @@
 import React from "react";
 import {
   Navbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
   Link,
-  Button,
   Image,
 } from "@nextui-org/react";
 
 export default function NavbarApp() {
   return (
-    <Navbar className="flex justify-center bg-white py-2 font-righteous font-normal text-secondary  ">
+    <Navbar className="flex justify-center bg-white py-2 font-poppins font-normal text-secondary  ">
       <NavbarContent className="hidden gap-4 sm:flex" justify="end">
         <NavbarItem>
           <Link

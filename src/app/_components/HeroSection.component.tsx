@@ -23,7 +23,7 @@ const HeroSection: React.FC = () => {
             }}
           />
           <div
-            className="max-w- flex flex-col font-openSans  font-semibold"
+            className="max-w- flex flex-col font-raleway  font-semibold"
             style={{
               filter: "drop-shadow(10px 20px 20px rgba(0, 0, 0, 0.90))",
             }}
@@ -38,7 +38,7 @@ const HeroSection: React.FC = () => {
         </div>
         <div className="flex justify-center py-5">
           <Button
-            className=" min-w-[200px] py-6 font-righteous text-xl"
+            className=" min-w-[200px] py-6 font-poppins text-xl"
             variant="solid"
             color="primary"
             style={{

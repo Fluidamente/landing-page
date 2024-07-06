@@ -1,5 +1,5 @@
 import { Image } from "@nextui-org/react";
-import { Facebook, Instagram } from "iconsax-react";
+import { Facebook, Instagram, Whatsapp } from "iconsax-react";
 import Link from "next/link";
 import React from "react";
 
@@ -11,16 +11,26 @@ const CallToAction = () => {
         borderRadius: "40px",
       }}
     >
-      <div className="max-w- flex flex-col  font-openSans font-normal ">
-        <h1 className=" pb-4 text-center font-righteous text-5xl font-bold text-secondary">
+      <div className="max-w- flex flex-col font-normal ">
+        <h1 className="pb-4 text-center font-poppins text-5xl font-semibold text-secondary">
           ¡Seguinos en redes!
         </h1>
-        <h3 className="text-start text-3xl text-secondary">
+        <h3 className="text-start font-raleway text-3xl text-secondary">
           Y accedé a mucho contenido sobre ...
         </h3>
         <div className="mt-5 flex justify-center gap-4 md:mt-10">
           <Link href="https://www.instagram.com/_fluidamente" target="_blank">
             <Instagram
+              size="3rem"
+              className="text-secondary transition-all duration-300 ease-in-out hover:scale-110 hover:text-white"
+              variant="Bold"
+            />
+          </Link>
+          <Link
+            href="https://wa.me/5493756417801?text=Buenas%20tardes%20Lic.%20Lepori%2C%20me%20interesa%20concertar%20una%20sesi%C3%B3n."
+            target="_blank"
+          >
+            <Whatsapp
               size="3rem"
               className="text-secondary transition-all duration-300 ease-in-out hover:scale-110 hover:text-white"
               variant="Bold"

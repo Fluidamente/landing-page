@@ -27,8 +27,8 @@ const ServiceCard = ({ imageSrc, title, content }: ServiceCardProps) => {
         />
       </CardBody>
       <CardFooter className="flex flex-col items-center ">
-        <h3 className="font-righteous text-2xl text-primary">{title}</h3>
-        <p className="text-md text-center font-openSans text-foreground">
+        <h3 className="font-poppins text-2xl text-primary">{title}</h3>
+        <p className="text-md text-center font-raleway text-foreground">
           {content}
         </p>
       </CardFooter>
