@@ -1,7 +1,23 @@
+"use client";
 import { Button, Image } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import React from "react";
 
 const AboutMe: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize(); // Check initial screen size
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div
       className=" mx-auto mt-10 flex  w-[80%] max-w-[1200px] flex-col items-center justify-center bg-primary-light p-10"
@@ -44,9 +60,8 @@ const AboutMe: React.FC = () => {
             width={450}
             height={800}
             style={{
-              borderRadius: "0px 40px 40px 0px",
+              borderRadius: isMobile ? "40px" : "0px 40px 40px 0px",
             }}
-            className="rounded-lg md:rounded-none"
           />
           <Button
             className=" mt-8 w-[250px] p-6 font-poppins text-xl"
@@ -56,7 +71,12 @@ const AboutMe: React.FC = () => {
               filter: "drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.50))",
             }}
           >
-            Agendar una sesión
+            <Link
+              href="https://wa.me/5493756417801?text=Buenas%20tardes%20Lic.%20Lepori%2C%20me%20interesa%20concertar%20una%20sesi%C3%B3n."
+              target="_blank"
+            >
+              Agendar una sesión
+            </Link>
           </Button>
         </div>
       </div>
