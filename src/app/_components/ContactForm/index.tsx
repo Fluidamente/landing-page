@@ -45,7 +45,10 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="flex w-full flex-col items-center justify-center py-5">
+    <section
+      className="flex w-full flex-col items-center justify-center py-5"
+      id="contact_form"
+    >
       <div className="flex w-full flex-col items-center justify-center gap-5 bg-primary px-5 py-3 lg:flex-row">
         <p className="font-raleway text-2xl text-white">
           Y si te gustaría dejar tu consulta:

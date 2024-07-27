@@ -10,7 +10,7 @@ const AboutMe: React.FC = () => {
       }}
     >
       <div className=" align-items-center grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2">
-        <div className="max-w- flex flex-col  font-raleway font-normal ">
+        <div className="max-w- flex flex-col  font-poppins font-normal ">
           <h1 className=" pb-4 text-center text-3xl  font-semibold text-white md:text-start">
             Sobre mí...
           </h1>
