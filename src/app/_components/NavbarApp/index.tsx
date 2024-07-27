@@ -52,7 +52,7 @@ export default function NavbarApp() {
         <NavbarItem isActive={activeLink === "hero_section"}>
           <Link
             color={activeLink === "hero_section" ? "primary" : "foreground"}
-            href={"#hero_section"}
+            href={"/#hero_section"}
             className="text-md md:text-xl lg:text-2xl"
             aria-current={activeLink === "hero_section" ? "page" : undefined}
           >
@@ -99,7 +99,7 @@ export default function NavbarApp() {
         >
           <Link
             color={activeLink === "contact_form" ? "primary" : "foreground"}
-            href={"#contact_form"}
+            href={"/#contact_form"}
             className="text-md md:text-xl lg:text-2xl"
           >
             CONTACTO
