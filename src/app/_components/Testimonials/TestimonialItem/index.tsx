@@ -18,7 +18,6 @@ const TestimonialItem = ({
       <div
         className={`absolute top-[-15px] z-10  ${decorationDirection === "left" ? "left-[-15px]" : "right-[-15px]"}`}
       >
-        <Image src="/images/testimonios.svg" width={100} height={100} />
         <MessageFavorite
           className="h-12 w-12 text-primary-dark"
           variant="Bold"

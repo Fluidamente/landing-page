@@ -1,4 +1,5 @@
 import { Button, Image } from "@nextui-org/react";
+import Link from "next/link";
 import React from "react";
 
 const HeroSection: React.FC = () => {
@@ -46,7 +47,7 @@ const HeroSection: React.FC = () => {
               filter: "drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.50))",
             }}
           >
-            ¡Contactame!
+            <Link href="/#contact_form">¡Contactame!</Link>
           </Button>
         </div>
       </div>
