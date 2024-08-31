@@ -1,15 +1,17 @@
 import { Button, Image } from "@nextui-org/react";
+import Link from "next/link";
 import React from "react";
 
 const HeroSection: React.FC = () => {
   return (
-    <div
+    <section
       className="relative  flex h-fit min-h-[350px] w-full   items-center"
       style={{
         backgroundImage: `url('/images/bg-hero.png')`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
+      id="hero_section"
     >
       <div className="absolute h-full w-full bg-primary-dark opacity-40"></div>
       <div className=" mx-auto flex w-[80%]  max-w-[1200px] flex-col items-center justify-center py-5">
@@ -45,11 +47,11 @@ const HeroSection: React.FC = () => {
               filter: "drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.50))",
             }}
           >
-            ¡Contactame!
+            <Link href="/#contact_form">¡Contactame!</Link>
           </Button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

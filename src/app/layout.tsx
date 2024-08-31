@@ -21,7 +21,17 @@ const raleway = Raleway({
 
 export const metadata: Metadata = {
   title: "Fluidamente",
-  description: "Cursos de psicologia online",
+  description: "Cursos de psicologia y atención online",
+  openGraph: {
+    images: [
+      {
+        url: "https://imgur.com/pDQAxXR",
+        width: 400,
+        height: 400,
+        alt: "Fluidamente",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {

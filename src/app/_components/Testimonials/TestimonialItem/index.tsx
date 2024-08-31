@@ -1,5 +1,5 @@
 "use client";
-import { CardBody, Card } from "@nextui-org/react";
+import { CardBody, Card, Image } from "@nextui-org/react";
 import React from "react";
 import { TestimonialItemProps } from "../Testimonials.constants";
 import { MessageFavorite } from "iconsax-react";
@@ -14,7 +14,7 @@ const TestimonialItem = ({
   decorationDirection?: "left" | "right";
 }) => {
   return (
-    <div className={`relative ${classes}`}>
+    <section className={`relative ${classes}`}>
       <div
         className={`absolute top-[-15px] z-10  ${decorationDirection === "left" ? "left-[-15px]" : "right-[-15px]"}`}
       >
@@ -44,7 +44,7 @@ const TestimonialItem = ({
           </div>
         </CardBody>
       </Card>
-    </div>
+    </section>
   );
 };
 
