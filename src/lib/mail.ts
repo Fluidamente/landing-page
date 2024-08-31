@@ -12,13 +12,13 @@ export async function sendMail({
   email: string;
   message: string;
 }) {
-  const { SMTP_EMAIL, SMTP_PASSWORD } = process.env;
+  const { NEXT_PUBLIC_SMTP_EMAIL, NEXT_PUBLIC_SMTP_PASSWORD } = process.env;
 
   const transport = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: SMTP_EMAIL,
-      pass: SMTP_PASSWORD,
+      user: NEXT_PUBLIC_SMTP_EMAIL,
+      pass: NEXT_PUBLIC_SMTP_PASSWORD,
     },
     tls: {
       rejectUnauthorized: false,
@@ -34,8 +34,8 @@ export async function sendMail({
   try {
     const html = await compileContactTemplate({ name, email, message });
     const sendEmail = await transport.sendMail({
-      from: SMTP_EMAIL,
-      to: SMTP_EMAIL,
+      from: NEXT_PUBLIC_SMTP_EMAIL,
+      to: NEXT_PUBLIC_SMTP_EMAIL,
       subject: `Nuevo mensaje de Formulario Web - ${name}`,
       html: html,
     });
