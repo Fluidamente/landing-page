@@ -5,19 +5,11 @@ import Link from "next/link";
 import React from "react";
 
 const BuyEbook: React.FC = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    handleResize(); // Check initial screen size
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const handleBuy = async () => {
+    const res = await fetch("/api/checkout", { method: "POST" });
+    const data = await res.json();
+    window.location.href = data.init_point;
+  };
   return (
     <div
       className=" mx-auto mt-10 flex  w-[80%] max-w-[1200px] flex-col items-center justify-center bg-primary-light p-10"
@@ -59,8 +51,9 @@ const BuyEbook: React.FC = () => {
             style={{
               filter: "drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.50))",
             }}
+            onClick={handleBuy}
           >
-            <Link href="#">Comprar</Link>
+            Comprar
           </Button>
         </div>
       </div>
