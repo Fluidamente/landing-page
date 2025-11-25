@@ -27,9 +27,9 @@ const AboutMe: React.FC = () => {
     >
       <div className=" align-items-center grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2">
         <div className="max-w- flex flex-col  font-poppins font-normal ">
-          <h1 className=" pb-4 text-center text-3xl  font-semibold text-white md:text-start">
+          <h2 className=" pb-4 text-center text-3xl  font-semibold text-white md:text-start">
             Sobre mí...
-          </h1>
+          </h2>
           <p className="text-md text-start text-white">
             Soy Sergio Lépori, Licenciado en Psicología graduado en 2015.
           </p>
@@ -62,6 +62,7 @@ const AboutMe: React.FC = () => {
             style={{
               borderRadius: isMobile ? "40px" : "0px 40px 40px 0px",
             }}
+            alt="profile picture"
           />
           <Button
             className=" mt-8 w-[250px] p-6 font-poppins text-xl"

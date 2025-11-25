@@ -4,6 +4,7 @@ import Services from "./_components/Services";
 import CallToAction from "./_components/CallToAction";
 import Testimonials from "./_components/Testimonials";
 import ContactForm from "./_components/ContactForm";
+import BuyEbook from "./_components/BuyEbook";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <Services />
       <Testimonials />
       <CallToAction />
+      <BuyEbook />
       <ContactForm />
     </main>
   );

@@ -23,6 +23,7 @@ const HeroSection: React.FC = () => {
             style={{
               filter: "drop-shadow(10px 20px 20px rgba(0, 0, 0, 0.90))",
             }}
+            alt="Logo Fluidamente"
           />
           <div
             className="max-w- flex flex-col font-raleway  font-semibold"

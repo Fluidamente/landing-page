@@ -46,6 +46,7 @@ const CallToAction = () => {
             width={300}
             height={300}
             className="h-24 w-24 md:h-28 md:w-28 lg:h-40 lg:w-40"
+            alt="Mind puzzle"
           />
         </div>
       </div>
