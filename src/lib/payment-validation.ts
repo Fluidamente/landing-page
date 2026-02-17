@@ -97,9 +97,11 @@ export function validateDownloadToken(token: string): boolean {
     if (payment.downloadToken === token) {
       if (payment.tokenExpiry && payment.tokenExpiry > Date.now()) {
         // Invalidate the token after successful validation (one-time use)
-        payment.downloadToken = undefined;
-        payment.tokenExpiry = undefined;
-        paymentStore.set(paymentId, payment);
+        paymentStore.set(paymentId, {
+          ...payment,
+          downloadToken: undefined,
+          tokenExpiry: undefined,
+        });
         return true;
       }
     }
