@@ -12,9 +12,9 @@ const CallToAction = () => {
       }}
     >
       <div className="max-w- flex flex-col font-normal ">
-        <h1 className="pb-4 text-center font-poppins text-5xl font-semibold text-secondary">
+        <h2 className="pb-4 text-center font-poppins text-5xl font-semibold text-secondary">
           ¡Seguinos en redes!
-        </h1>
+        </h2>
         <h3 className="text-start font-raleway text-3xl text-secondary">
           Y accedé a mucho contenido sobre ...
         </h3>

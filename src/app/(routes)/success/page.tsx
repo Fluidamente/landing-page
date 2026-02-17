@@ -3,9 +3,12 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@nextui-org/react";
+import { TickCircle } from "iconsax-react";
+import { useRouter } from "next/navigation";
 
 export default function SuccessPage() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [paymentId, setPaymentId] = useState<string | null>(null);
   const [isValidating, setIsValidating] = useState(true);
   const [isValid, setIsValid] = useState(false);
@@ -93,6 +96,15 @@ export default function SuccessPage() {
             Por favor espera mientras verificamos tu transacción.
           </p>
         </div>
+        <Button
+          size="lg"
+          color="secondary"
+          onClick={() => router.push("/")}
+          disabled={downloading}
+          className="mt-6 text-lg font-semibold"
+        >
+          Volver al Inicio
+        </Button>
       </div>
     );
   }
@@ -106,6 +118,15 @@ export default function SuccessPage() {
         <p className="text-lg text-red-700">
           No pudimos verificar tu transacción.
         </p>
+        <Button
+          size="lg"
+          color="secondary"
+          onClick={() => router.push("/")}
+          disabled={downloading}
+          className="mt-6 text-lg font-semibold"
+        >
+          Volver al Inicio
+        </Button>
       </div>
     );
   }
@@ -119,35 +140,96 @@ export default function SuccessPage() {
         <p className="text-lg text-orange-700">
           Tu pago está siendo procesado. Te notificaremos cuando esté aprobado.
         </p>
+        <Button
+          size="lg"
+          color="secondary"
+          onClick={() => router.push("/")}
+          disabled={downloading}
+          className="mt-6 text-lg font-semibold"
+        >
+          Volver al Inicio
+        </Button>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-green-100 p-8">
+    <div
+      className="flex min-h-screen flex-col items-center justify-center p-8"
+      style={{
+        background:
+          "linear-gradient(0deg, rgba(130,171,165,1) 0% , rgba(240,255,245,1) 65% , rgba(255,255,255,1) 100%)",
+      }}
+    >
       <div className="max-w-2xl text-center">
-        <div className="mb-6 text-6xl">✅</div>
-        <h1 className="mb-4 text-4xl font-bold text-green-800">
+        <div className="mb-6 flex justify-center text-6xl">
+          <TickCircle size="6rem" className="text-primary" />
+        </div>
+        <h2 className="mb-4 text-4xl font-bold text-primary">
           ¡Compra Exitosa!
-        </h1>
-        <p className="mb-6 text-lg text-green-700">
-          Gracias por tu compra. Tu transacción ha sido procesada con éxito.
-        </p>
+        </h2>
 
-        {downloading && (
-          <div className="mb-6">
-            <div className="mb-2 animate-pulse text-2xl">📥</div>
-            <p className="font-semibold text-green-600">
-              Tu ebook se está descargando automáticamente...
+        <section
+          className="mb-8 rounded-2xl border border-primary/20 bg-white/70 p-6 text-left shadow-sm backdrop-blur-sm"
+          aria-live="polite"
+        >
+          <header className="mb-4 flex items-center gap-3">
+            <div className="animate-pulse text-2xl" aria-hidden="true">
+              📥
+            </div>
+            <h3 className="text-lg font-semibold text-secondary">
+              Tu Ebook ya está acá (y algunas palabras antes de empezar)
+            </h3>
+          </header>
+
+          <article className="space-y-3 text-sm leading-relaxed text-secondary">
+            <p>
+              Hola, gracias por estar acá. Si llegaste a este Ebook,
+              probablemente no fue por curiosidad, sino porque estás atravesando
+              una pérdida que duele.
             </p>
-          </div>
-        )}
 
-        <p className="text-md mb-8 text-green-600">ID de pago: {paymentId}</p>
+            <p>
+              Quiero decirte algo antes de que lo abras: este no es un material
+              para “hacer bien” ni para avanzar más rápido. Es un espacio para
+              <span className="font-bold"> ordenar lo que sentís</span>, a tu
+              ritmo, cuando tengas un poco de resto emocional.
+            </p>
+
+            <p>
+              El Ebook que descargaste es{" "}
+              <span className="font-bold">práctico y sencillo</span>. Tiene
+              ejercicios de escritura pensados para ayudarte a poner en palabras
+              lo que cuesta, y así atravesar este proceso con un poco más de
+              claridad.
+            </p>
+
+            <p>
+              No tiene tiempo estimado ni una frecuencia estructurada. Podés
+              leer, cerrar y volver más tarde. Podés escribir mucho o apenas
+              algunas líneas. Todo está bien.
+            </p>
+
+            <p>
+              Si querés una sugerencia para empezar: buscá un momento tranquilo,
+              leé la primera consigna y escribí sin pensar demasiado si “está
+              bien” o no. Este espacio es solo para vos.
+            </p>
+
+            <footer className="flex flex-col pt-1 font-medium">
+              Espero que este material pueda acompañarte, aunque sea un poco, en
+              este momento. Y si hoy no es el día, también está bien volver
+              cuando lo sientas.{" "}
+              <span className="font-bold">Un abrazo, Sergio.</span>
+            </footer>
+          </article>
+        </section>
+
+        <p className="mb-8 text-lg text-secondary">ID de pago: {paymentId}</p>
 
         <Button
           size="lg"
-          color="success"
+          color="primary"
           onClick={handleDownload}
           disabled={downloading}
           className="text-lg font-semibold"
@@ -155,7 +237,7 @@ export default function SuccessPage() {
           {downloading ? "Descargando..." : "Descargar Ebook Nuevamente"}
         </Button>
 
-        <p className="mt-6 text-sm text-green-600">
+        <p className="text-md mt-6 text-secondary">
           Si la descarga no inicia automáticamente, usa el botón de arriba.
         </p>
       </div>

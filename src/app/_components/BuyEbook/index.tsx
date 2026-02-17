@@ -1,17 +1,30 @@
 "use client";
-import { Button, Image } from "@nextui-org/react";
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import {
+  Button,
+  Image,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+} from "@nextui-org/react";
+import { useState } from "react";
 import React from "react";
 
 const BuyEbook: React.FC = () => {
-  const handleBuy = async () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  const handleConfirmBuy = async () => {
+    setIsRedirecting(true);
     const res = await fetch("/api/checkout", { method: "POST" });
     const data = await res.json();
     window.location.href = data.init_point;
   };
+
   return (
-    <div
+    <section
+      id="buy_ebook_section"
       className=" mx-auto mt-10 flex  w-[80%] max-w-[1200px] flex-col items-center justify-center bg-primary-light p-10"
       style={{
         borderRadius: "40px",
@@ -51,13 +64,56 @@ const BuyEbook: React.FC = () => {
             style={{
               filter: "drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.50))",
             }}
-            onClick={handleBuy}
+            onClick={() => setIsModalOpen(true)}
           >
             Comprar
           </Button>
         </div>
       </div>
-    </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        placement="center"
+        backdrop="blur"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Confirmar redirección
+              </ModalHeader>
+              <ModalBody>
+                <p>
+                  Vas a ser redirigido a la aplicación de MercadoPago para
+                  completar el pago de forma segura.
+                </p>
+                <p className="text-sm text-default-500">
+                  Una vez finalizado, volverás automáticamente a este sitio.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="default"
+                  variant="light"
+                  onPress={onClose}
+                  disabled={isRedirecting}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  color="primary"
+                  onPress={handleConfirmBuy}
+                  isLoading={isRedirecting}
+                >
+                  Confirmar y continuar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </section>
   );
 };
 

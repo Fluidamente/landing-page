@@ -28,6 +28,7 @@ const config: Config = {
     fontFamily: {
       raleway: ["var(--font-raleway)"],
       poppins: ["var(--font-poppins)"],
+      chillax: ["Chillax", "sans-serif"],
     },
   },
   plugins: [nextui()],

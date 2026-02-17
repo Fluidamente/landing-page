@@ -65,15 +65,17 @@ const ContactForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className=" mx-auto flex w-full max-w-xl flex-col items-center justify-center gap-5 p-5 font-raleway"
       >
-        <div className="grid w-full grid-cols-3 justify-items-center gap-5">
-          <label className="col-span-1 justify-self-end text-xl">Nombre:</label>
+        <div className="grid w-full grid-cols-1 justify-items-center gap-5 md:grid-cols-3">
+          <label className="col-span-1 justify-self-start text-xl md:justify-self-end">
+            Nombre:
+          </label>
           <Controller
             control={control}
             name={"name"}
             render={({ field }) => (
               <Input
                 {...field}
-                className="col-span-2 w-full max-w-xs font-raleway"
+                className="col-span-2 w-full font-raleway md:max-w-sm"
               />
             )}
           />
@@ -81,28 +83,30 @@ const ContactForm = () => {
         {errors.name && (
           <p className="pl-3 text-sm text-red-500">{errors.name.message}</p>
         )}
-        <div className="grid w-full grid-cols-3 justify-items-center gap-5">
-          <label className="col-span-1 justify-self-end text-xl">Email:</label>
+        <div className="grid w-full grid-cols-1 justify-items-center gap-5 md:grid-cols-3">
+          <label className="col-span-1 justify-self-start text-xl md:justify-self-end">
+            Email:
+          </label>
           <Controller
             control={control}
             name={"email"}
             render={({ field }) => (
-              <Input {...field} className="col-span-2 w-full max-w-xs" />
+              <Input {...field} className="col-span-2 w-full md:max-w-sm" />
             )}
           />
         </div>
         {errors.email && (
           <p className="pl-3 text-sm text-red-500">{errors.email.message}</p>
         )}
-        <div className="grid w-full grid-cols-3 justify-items-center gap-5">
-          <label className="col-span-1 justify-self-end text-xl">
+        <div className="grid w-full grid-cols-1 justify-items-center gap-5 md:grid-cols-3">
+          <label className="col-span-1 justify-self-start text-xl md:justify-self-end">
             Mensaje:
           </label>
           <Controller
             control={control}
             name={"message"}
             render={({ field }) => (
-              <Textarea {...field} className="col-span-2 w-full max-w-xs" />
+              <Textarea {...field} className="col-span-2 w-full md:max-w-sm" />
             )}
           />
         </div>
