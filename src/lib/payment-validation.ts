@@ -89,13 +89,17 @@ export function generateDownloadToken(paymentId: string): string {
 }
 
 /**
- * Validate download token
+ * Validate download token and invalidate after use (one-time use)
  */
 export function validateDownloadToken(token: string): boolean {
   const entries = Array.from(paymentStore.entries());
-  for (const [, payment] of entries) {
+  for (const [paymentId, payment] of entries) {
     if (payment.downloadToken === token) {
       if (payment.tokenExpiry && payment.tokenExpiry > Date.now()) {
+        // Invalidate the token after successful validation (one-time use)
+        payment.downloadToken = undefined;
+        payment.tokenExpiry = undefined;
+        paymentStore.set(paymentId, payment);
         return true;
       }
     }
