@@ -23,6 +23,7 @@ const HeroSection: React.FC = () => {
             style={{
               filter: "drop-shadow(10px 20px 20px rgba(0, 0, 0, 0.90))",
             }}
+            alt="Logo Fluidamente"
           />
           <div
             className="max-w- flex flex-col font-raleway  font-semibold"
@@ -30,9 +31,9 @@ const HeroSection: React.FC = () => {
               filter: "drop-shadow(10px 20px 20px rgba(0, 0, 0, 0.90))",
             }}
           >
-            <h1 className=" text-center text-4xl italic text-white md:text-start">
+            <h2 className=" text-center text-4xl italic text-white md:text-start">
               Encuentra bienestar cuidando tu salud mental
-            </h1>
+            </h2>
             <p className="text-center text-2xl text-white md:text-start">
               En todo momento y lugar.
             </p>

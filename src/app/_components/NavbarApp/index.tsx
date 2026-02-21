@@ -22,13 +22,8 @@ export default function NavbarApp() {
     };
 
     const observer = new IntersectionObserver((entries) => {
-      console.log(entries);
-      console.log(activeLink, "path", pathName);
-
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log(entry.target.id);
-
           setActiveLink(entry.target.id);
         }
       });
@@ -37,7 +32,6 @@ export default function NavbarApp() {
     sections.forEach((section) => {
       observer.observe(section);
     });
-    console.log(activeLink);
 
     return () => {
       sections.forEach((section) => {

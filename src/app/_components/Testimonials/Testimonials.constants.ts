@@ -8,7 +8,7 @@ export const testimonials: TestimonialItemProps[] = [
     id: 1,
     content: [
       '"Gracias Sergio por tu trabajo! me ayudo muchísimo.',
-      'Hace 3 meses estoy viviendo en Brasil. Me vine sola, tomé coraje y estoy descubriendo otra Valeria. Puedo decir que mi vida cambió, hasta mis gustos. Pero lo que más ame fue aprender a ser mi mejor compañía. ¡Gracias!"',
+      'Hace 3 meses estoy viviendo en Brasil. Me vine sola, tomé coraje y estoy descubriendo otra versión de mí misma. Puedo decir que mi vida cambió, hasta mis gustos. Pero lo que más ame fue aprender a ser mi mejor compañía. ¡Gracias!"',
     ],
   },
   {

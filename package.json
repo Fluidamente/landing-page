@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:webhook:valid": "bash ./scripts/test-webhook.sh valid",
+    "test:webhook:invalid": "bash ./scripts/test-webhook.sh invalid",
     "format": "prettier --write .",
     "prepare": "husky"
   },
@@ -20,6 +22,7 @@
     "handlebars": "^4.7.8",
     "husky": "^9.0.7",
     "iconsax-react": "^0.0.8",
+    "mercadopago": "^2.10.1",
     "next": "14.0.4",
     "nodemailer": "^6.9.14",
     "react": "^18",

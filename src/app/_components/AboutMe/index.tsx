@@ -27,29 +27,29 @@ const AboutMe: React.FC = () => {
     >
       <div className=" align-items-center grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2">
         <div className="max-w- flex flex-col  font-poppins font-normal ">
-          <h1 className=" pb-4 text-center text-3xl  font-semibold text-white md:text-start">
+          <h2 className=" pb-4 text-center text-3xl  font-semibold text-white md:text-justify">
             Sobre mí...
-          </h1>
-          <p className="text-md text-start text-white">
+          </h2>
+          <p className="text-md text-justify text-white lg:text-lg">
             Soy Sergio Lépori, Licenciado en Psicología graduado en 2015.
           </p>
-          <p className="text-md text-start text-white">
+          <p className="text-md text-justify text-white lg:text-lg">
             Desde entonces trabajo con personas que buscan equilibrar su salud
             mental y que esto influya de manera positiva en su vida.
           </p>
-          <p className="text-md text-start text-white">
+          <p className="text-md text-justify text-white lg:text-lg">
             En cada sesión intentamos enfocarnos en el presente, evaluando las
             emociones y situaciones actuales, así como las experiencias pasadas
             que puedan influir en la actualidad.
           </p>
-          <p className="text-md text-start text-white">
+          <p className="text-md text-justify text-white lg:text-lg">
             Para ello es necesario trabajar sobre el modo en que nos
             relacionamos con nosotros mismos y con los demás, promoviendo la
             aceptación y la comprensión del desarrollo que tuvimos a largo de
             nuestra vida, reevaluando y modificando ciertos aspectos que generen
             malestar.
           </p>
-          <p className="text-md text-start text-white">
+          <p className="text-md text-justify text-white lg:text-lg">
             El fin de todo esto es encontrar bienestar en el Aquí y Ahora,
             fomentar un crecimiento continuo y funcional en la vida diaria.
           </p>
@@ -62,6 +62,7 @@ const AboutMe: React.FC = () => {
             style={{
               borderRadius: isMobile ? "40px" : "0px 40px 40px 0px",
             }}
+            alt="profile picture"
           />
           <Button
             className=" mt-8 w-[250px] p-6 font-poppins text-xl"

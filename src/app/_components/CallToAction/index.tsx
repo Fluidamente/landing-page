@@ -12,9 +12,9 @@ const CallToAction = () => {
       }}
     >
       <div className="max-w- flex flex-col font-normal ">
-        <h1 className="pb-4 text-center font-poppins text-5xl font-semibold text-secondary">
+        <h2 className="pb-4 text-center font-poppins text-5xl font-semibold text-secondary">
           ¡Seguinos en redes!
-        </h1>
+        </h2>
         <h3 className="text-start font-raleway text-3xl text-secondary">
           Y accedé a mucho contenido sobre ...
         </h3>
@@ -46,6 +46,7 @@ const CallToAction = () => {
             width={300}
             height={300}
             className="h-24 w-24 md:h-28 md:w-28 lg:h-40 lg:w-40"
+            alt="Mind puzzle"
           />
         </div>
       </div>
