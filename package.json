@@ -9,6 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:webhook:valid": "bash ./scripts/test-webhook.sh valid",
+    "test:webhook:invalid": "bash ./scripts/test-webhook.sh invalid",
     "format": "prettier --write .",
     "prepare": "husky"
   },

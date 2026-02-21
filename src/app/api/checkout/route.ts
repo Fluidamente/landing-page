@@ -7,10 +7,23 @@ const client = new MercadoPagoConfig({
 
 export async function POST(request: Request) {
   try {
-    // Get the base URL from environment or request
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      `${request.headers.get("x-forwarded-proto") || "http"}://${request.headers.get("host")}`;
+    const configuredBaseUrl = process.env.NEXT_PUBLIC_BASE_URL?.trim();
+    const requestOrigin = new URL(request.url).origin;
+
+    const rawBaseUrl = configuredBaseUrl || requestOrigin;
+    const baseUrlWithProtocol = /^https?:\/\//i.test(rawBaseUrl)
+      ? rawBaseUrl
+      : `${rawBaseUrl.startsWith("localhost") ? "http" : "https"}://${rawBaseUrl}`;
+
+    const origin = new URL(baseUrlWithProtocol).origin;
+    const successUrl = new URL("/success", origin).toString();
+    const failureUrl = new URL("/failure", origin).toString();
+    const pendingUrl = new URL("/pending", origin).toString();
+    const isLocalOrigin = /https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(
+      origin
+    );
+    const shouldUseAutoReturn =
+      successUrl.startsWith("https://") && !isLocalOrigin;
 
     const preference = await new Preference(client).create({
       body: {
@@ -19,16 +32,21 @@ export async function POST(request: Request) {
             id: "ebook-001",
             title: "Ebook El camino consciente del duelo",
             quantity: 1,
-            unit_price: 16900,
+            unit_price: 0.1,
             currency_id: "ARS",
           },
         ],
         back_urls: {
-          success: `localhost:3000/success`,
-          failure: `localhost:3000/failure`,
-          pending: `localhost:3000/pending`,
+          success: successUrl,
+          failure: failureUrl,
+          pending: pendingUrl,
         },
-        auto_return: "approved",
+        redirect_urls: {
+          success: successUrl,
+          failure: failureUrl,
+          pending: pendingUrl,
+        },
+        ...(shouldUseAutoReturn ? { auto_return: "approved" } : {}),
       },
     });
 

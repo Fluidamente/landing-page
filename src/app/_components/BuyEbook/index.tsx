@@ -17,9 +17,21 @@ const BuyEbook: React.FC = () => {
 
   const handleConfirmBuy = async () => {
     setIsRedirecting(true);
-    const res = await fetch("/api/checkout", { method: "POST" });
-    const data = await res.json();
-    window.location.href = data.init_point;
+
+    try {
+      const res = await fetch("/api/checkout", { method: "POST" });
+      const data = await res.json();
+
+      if (!res.ok || !data?.init_point) {
+        throw new Error(data?.error || "No se pudo iniciar el checkout.");
+      }
+
+      window.location.href = data.init_point;
+    } catch (error) {
+      console.error("Error creating checkout:", error);
+      alert("No pudimos iniciar el pago. Por favor, intentá nuevamente.");
+      setIsRedirecting(false);
+    }
   };
 
   return (
