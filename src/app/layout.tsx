@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "https://imgur.com/pDQAxXR",
-        width: 400,
-        height: 400,
+        url: "/images/mind_puzzle.png",
+        width: 638,
+        height: 690,
         alt: "Fluidamente",
       },
     ],
