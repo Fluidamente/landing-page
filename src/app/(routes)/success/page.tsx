@@ -42,25 +42,27 @@ export default function SuccessPage() {
           setAutoDownloadStarted(true);
           // Small delay to show success message first
           setTimeout(() => {
-            handleDownload();
+            handleDownload(id);
           }, 1500);
         }
+      } else {
+        setIsValid(false);
       }
     } catch (error) {
       console.error("Error validating payment:", error);
+      setIsValid(false);
     } finally {
       setIsValidating(false);
     }
   };
 
-  const handleDownload = async () => {
-    if (!paymentId) return;
+  const handleDownload = async (resolvedPaymentId?: string) => {
+    const idToUse = resolvedPaymentId ?? paymentId;
+    if (!idToUse) return;
 
     setDownloading(true);
     try {
-      const response = await fetch(
-        `/api/download-ebook?payment_id=${paymentId}`
-      );
+      const response = await fetch(`/api/download-ebook?payment_id=${idToUse}`);
 
       if (response.ok) {
         const blob = await response.blob();
@@ -230,7 +232,7 @@ export default function SuccessPage() {
         <Button
           size="lg"
           color="primary"
-          onClick={handleDownload}
+          onClick={() => handleDownload()}
           disabled={downloading}
           className="text-lg font-semibold"
         >
