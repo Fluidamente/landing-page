@@ -13,10 +13,7 @@ export async function GET(request: Request) {
       );
     }
 
-    // Validate payment with MercadoPago
     const validation = await validatePayment(paymentId);
-
-    // Check if payment was already processed via webhook
     const storedPayment = getPaymentInfo(paymentId);
 
     return NextResponse.json({

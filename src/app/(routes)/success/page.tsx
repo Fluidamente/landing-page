@@ -18,8 +18,6 @@ export default function SuccessPage() {
   useEffect(() => {
     const payment_id = searchParams.get("payment_id");
     const collection_id = searchParams.get("collection_id");
-
-    // MercadoPago can send either payment_id or collection_id
     const id = payment_id || collection_id;
 
     if (id) {
@@ -37,10 +35,8 @@ export default function SuccessPage() {
 
       if (data.isValid) {
         setIsValid(true);
-        // Trigger automatic download after validation
         if (!autoDownloadStarted) {
           setAutoDownloadStarted(true);
-          // Small delay to show success message first
           setTimeout(() => {
             handleDownload(id);
           }, 1500);
@@ -190,14 +186,13 @@ export default function SuccessPage() {
               probablemente no fue por curiosidad, sino porque estás atravesando
               una pérdida que duele.
             </p>
-
             <p>
               Quiero decirte algo antes de que lo abras: este no es un material
-              para “hacer bien” ni para avanzar más rápido. Es un espacio para
-              <span className="font-bold"> ordenar lo que sentís</span>, a tu
+              para &quot;hacer bien&quot; ni para avanzar más rápido. Es un
+              espacio para{" "}
+              <span className="font-bold">ordenar lo que sentís</span>, a tu
               ritmo, cuando tengas un poco de resto emocional.
             </p>
-
             <p>
               El Ebook que descargaste es{" "}
               <span className="font-bold">práctico y sencillo</span>. Tiene
@@ -205,19 +200,16 @@ export default function SuccessPage() {
               lo que cuesta, y así atravesar este proceso con un poco más de
               claridad.
             </p>
-
             <p>
               No tiene tiempo estimado ni una frecuencia estructurada. Podés
               leer, cerrar y volver más tarde. Podés escribir mucho o apenas
               algunas líneas. Todo está bien.
             </p>
-
             <p>
               Si querés una sugerencia para empezar: buscá un momento tranquilo,
-              leé la primera consigna y escribí sin pensar demasiado si “está
-              bien” o no. Este espacio es solo para vos.
+              leé la primera consigna y escribí sin pensar demasiado si
+              &quot;está bien&quot; o no. Este espacio es solo para vos.
             </p>
-
             <footer className="flex flex-col pt-1 font-medium">
               Espero que este material pueda acompañarte, aunque sea un poco, en
               este momento. Y si hoy no es el día, también está bien volver

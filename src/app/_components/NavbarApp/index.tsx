@@ -76,15 +76,15 @@ export default function NavbarApp() {
       </div>
       <NavbarContent className="hidden gap-4 sm:flex" justify="start">
         <NavbarItem
-          isActive={pathName === "/blog"}
-          aria-current={pathName === "/blog" ? "page" : undefined}
+          isActive={pathName === "/ebook"}
+          aria-current={pathName === "/ebook" ? "page" : undefined}
         >
           <Link
-            color={pathName === "/blog" ? "primary" : "foreground"}
-            href="/blog"
+            color={pathName === "/ebook" ? "primary" : "foreground"}
+            href="/ebook"
             className="text-md md:text-xl lg:text-2xl"
           >
-            BLOG
+            EBOOK
           </Link>
         </NavbarItem>
         <NavbarItem

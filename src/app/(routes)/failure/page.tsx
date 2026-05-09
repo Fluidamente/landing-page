@@ -8,7 +8,6 @@ export default function FailurePage() {
       className="flex min-h-screen flex-col items-center justify-center"
       style={{
         background:
-          //change to error colors from danger 400 to danger 100
           "linear-gradient(0deg, rgba(255, 182, 193, 1) 0%, rgba(255, 228, 225, 1) 65%, rgba(255, 255, 255, 1) 100%)",
       }}
     >
@@ -19,7 +18,7 @@ export default function FailurePage() {
       <p className="text-lg text-danger-800">
         Hubo un problema al procesar tu pago. Por favor, intenta nuevamente.
       </p>
-      <Link href="/#buy_ebook_section" className="mt-8">
+      <Link href="/ebook" className="mt-8">
         <Button size="lg" color="danger" className="text-lg font-semibold">
           Volver a Intentar
         </Button>

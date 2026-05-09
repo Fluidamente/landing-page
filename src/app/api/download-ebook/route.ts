@@ -15,7 +15,6 @@ export async function GET(request: Request) {
       );
     }
 
-    // Validate the payment
     const validation = await validatePayment(paymentId);
 
     if (!validation.isValid) {
@@ -29,10 +28,8 @@ export async function GET(request: Request) {
       );
     }
 
-    // Mark payment as downloaded
     markAsDownloaded(paymentId);
 
-    // Path to the ebook file in the public folder
     const filePath = path.join(
       process.cwd(),
       "public",
@@ -41,10 +38,8 @@ export async function GET(request: Request) {
     );
 
     try {
-      // Read the file
       const fileBuffer = await readFile(filePath);
 
-      // Return the file as a download
       return new NextResponse(fileBuffer as any, {
         headers: {
           "Content-Type": "application/pdf",
