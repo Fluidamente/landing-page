@@ -38,7 +38,7 @@ const HeroSection: React.FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex justify-center py-5">
+        <div className="flex justify-center gap-4 py-5">
           <Button
             className=" min-w-[200px] py-6 font-poppins text-xl"
             variant="solid"
@@ -48,6 +48,17 @@ const HeroSection: React.FC = () => {
             }}
           >
             <Link href="/#contact_form">¡Contactame!</Link>
+          </Button>
+          <Button
+            className=" min-w-[200px] py-6 font-poppins text-xl"
+            variant="bordered"
+            style={{
+              color: "white",
+              borderColor: "white",
+              filter: "drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.50))",
+            }}
+          >
+            <Link href="/ebook">Comprar libro</Link>
           </Button>
         </div>
       </div>
