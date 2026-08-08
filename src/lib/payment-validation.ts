@@ -10,7 +10,6 @@ export interface PaymentValidationResult {
   statusDetail: string;
   amount: number;
   paymentId: string;
-  payerEmail?: string;
 }
 
 export async function validatePayment(
@@ -26,7 +25,6 @@ export async function validatePayment(
       statusDetail: paymentData.status_detail || "unknown",
       amount: paymentData.transaction_amount || 0,
       paymentId: paymentData.id?.toString() || "",
-      payerEmail: paymentData.payer?.email || undefined,
     };
   } catch (error) {
     console.error("Error validating payment:", error);
