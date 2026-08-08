@@ -32,7 +32,7 @@ export async function POST(request: Request) {
             id: "ebook-001",
             title: "Ebook El camino consciente del duelo",
             quantity: 1,
-            unit_price: 16900,
+            unit_price: 1,
             currency_id: "ARS",
           },
         ],
