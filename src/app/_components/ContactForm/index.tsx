@@ -37,10 +37,17 @@ const ContactForm = () => {
       email: data.email,
       message: data.message,
     };
-    await sendMail(args);
-    toast.success("Mensaje enviado", {
-      description: "Gracias por tu consulta, te responderemos a la brevedad",
-    });
+    const result = await sendMail(args);
+    if (result) {
+      toast.success("Mensaje enviado", {
+        description: "Gracias por tu consulta, te responderemos a la brevedad",
+      });
+    } else {
+      toast.error("No pudimos enviar tu mensaje", {
+        description:
+          "Intentá nuevamente o escribinos por WhatsApp usando el número de arriba.",
+      });
+    }
     setIsLoading(false);
   };
 
