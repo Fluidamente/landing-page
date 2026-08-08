@@ -57,8 +57,13 @@ export async function POST(request: Request) {
     });
 
     if (!result.success) {
+      // TODO(temp diagnostics): remove `debug` once the root cause of the
+      // production 502 on this endpoint is confirmed and fixed.
       return NextResponse.json(
-        { error: "No pudimos enviar el correo. Intentá nuevamente." },
+        {
+          error: "No pudimos enviar el correo. Intentá nuevamente.",
+          debug: result.error,
+        },
         { status: 502 }
       );
     }

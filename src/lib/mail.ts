@@ -74,15 +74,15 @@ export async function sendEbookByEmail({
   to: string;
   attachment: Buffer;
   filename: string;
-}): Promise<{ success: boolean }> {
+}): Promise<{ success: boolean; error?: string }> {
   const { SMTP_EMAIL } = process.env;
   const transport = createTransport();
 
   try {
     await transport.verify();
   } catch (error) {
-    console.error(error);
-    return { success: false };
+    console.error("sendEbookByEmail: transport.verify() failed", error);
+    return { success: false, error: (error as Error)?.message };
   }
 
   try {
@@ -104,7 +104,7 @@ export async function sendEbookByEmail({
     });
     return { success: true };
   } catch (error) {
-    console.error(error);
-    return { success: false };
+    console.error("sendEbookByEmail: transport.sendMail() failed", error);
+    return { success: false, error: (error as Error)?.message };
   }
 }
