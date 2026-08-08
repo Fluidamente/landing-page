@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { validatePayment, markAsDownloaded } from "@/lib/payment-validation";
-import { readFile } from "fs/promises";
-import path from "path";
+import { EBOOK_FILENAME, readEbookFile } from "@/lib/ebook-file";
 
 export async function GET(request: Request) {
   try {
@@ -30,21 +29,13 @@ export async function GET(request: Request) {
 
     markAsDownloaded(paymentId);
 
-    const filePath = path.join(
-      process.cwd(),
-      "public",
-      "ebooks",
-      "el_camino_consciente_del_duelo.pdf"
-    );
-
     try {
-      const fileBuffer = await readFile(filePath);
+      const fileBuffer = await readEbookFile();
 
       return new NextResponse(fileBuffer as any, {
         headers: {
           "Content-Type": "application/pdf",
-          "Content-Disposition":
-            'attachment; filename="el_camino_consciente_del_duelo.pdf"',
+          "Content-Disposition": `attachment; filename="${EBOOK_FILENAME}"`,
           "Content-Length": fileBuffer.length.toString(),
         },
       });

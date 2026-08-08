@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { TickCircle } from "iconsax-react";
 import { useRouter } from "next/navigation";
+
+const getDownloadUrl = (id: string) =>
+  `/api/download-ebook?payment_id=${encodeURIComponent(id)}`;
 
 export default function SuccessPage() {
   const searchParams = useSearchParams();
@@ -14,6 +17,15 @@ export default function SuccessPage() {
   const [isValid, setIsValid] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [autoDownloadStarted, setAutoDownloadStarted] = useState(false);
+  // Triggers the download inside a hidden iframe once payment is confirmed.
+  // A hidden iframe (rather than the old blob URL + <a download> click trick)
+  // doesn't require a user gesture and isn't affected by iOS Safari's
+  // long-standing bug where <a download> on blob: URLs is ignored.
+  const [autoDownloadUrl, setAutoDownloadUrl] = useState<string | null>(null);
+  const [email, setEmail] = useState("");
+  const [sendingEmail, setSendingEmail] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   useEffect(() => {
     const payment_id = searchParams.get("payment_id");
@@ -35,10 +47,13 @@ export default function SuccessPage() {
 
       if (data.isValid) {
         setIsValid(true);
+        if (data.payerEmail) {
+          setEmail(data.payerEmail);
+        }
         if (!autoDownloadStarted) {
           setAutoDownloadStarted(true);
           setTimeout(() => {
-            handleDownload(id);
+            setAutoDownloadUrl(getDownloadUrl(id));
           }, 1500);
         }
       } else {
@@ -52,33 +67,40 @@ export default function SuccessPage() {
     }
   };
 
-  const handleDownload = async (resolvedPaymentId?: string) => {
-    const idToUse = resolvedPaymentId ?? paymentId;
-    if (!idToUse) return;
+  const handleDownload = () => {
+    if (!paymentId) return;
 
     setDownloading(true);
+    // Direct navigation to a URL with Content-Disposition: attachment is
+    // handled natively by the browser's download mechanism (desktop and
+    // mobile), unlike the blob URL + <a download> trick this used to use.
+    window.location.href = getDownloadUrl(paymentId);
+    setTimeout(() => setDownloading(false), 2000);
+  };
+
+  const handleSendEmail = async () => {
+    if (!paymentId || !email) return;
+
+    setSendingEmail(true);
+    setEmailError(null);
     try {
-      const response = await fetch(`/api/download-ebook?payment_id=${idToUse}`);
+      const response = await fetch("/api/send-ebook-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ payment_id: paymentId, email }),
+      });
+      const data = await response.json();
 
       if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "el_camino_consciente_del_duelo.pdf";
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
+        setEmailSent(true);
       } else {
-        const error = await response.json();
-        alert(`Error: ${error.error}`);
+        setEmailError(data?.error || "No pudimos enviar el correo.");
       }
     } catch (error) {
-      console.error("Error downloading ebook:", error);
-      alert("Error al descargar el ebook. Por favor, intenta nuevamente.");
+      console.error("Error sending ebook email:", error);
+      setEmailError("No pudimos enviar el correo. Intentá nuevamente.");
     } finally {
-      setDownloading(false);
+      setSendingEmail(false);
     }
   };
 
@@ -224,7 +246,7 @@ export default function SuccessPage() {
         <Button
           size="lg"
           color="primary"
-          onClick={() => handleDownload()}
+          onClick={handleDownload}
           disabled={downloading}
           className="text-lg font-semibold"
         >
@@ -232,8 +254,53 @@ export default function SuccessPage() {
         </Button>
 
         <p className="text-md mt-6 text-secondary">
-          Si la descarga no inicia automáticamente, usa el botón de arriba.
+          Si la descarga no inicia automáticamente (esto puede pasar en algunos
+          celulares), usa el botón de arriba o pedí que te lo enviemos por
+          correo:
         </p>
+
+        <section className="mx-auto mt-4 flex max-w-md flex-col items-stretch gap-3 rounded-2xl border border-primary/20 bg-white/70 p-4 shadow-sm backdrop-blur-sm sm:flex-row sm:items-start">
+          <Input
+            type="email"
+            label="Tu correo"
+            placeholder="nombre@correo.com"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailSent(false);
+              setEmailError(null);
+            }}
+            isDisabled={sendingEmail}
+          />
+          <Button
+            color="secondary"
+            onClick={handleSendEmail}
+            disabled={sendingEmail || !email}
+            className="shrink-0 font-semibold sm:mt-1"
+          >
+            {sendingEmail
+              ? "Enviando..."
+              : emailSent
+                ? "¡Enviado!"
+                : "Enviar por correo"}
+          </Button>
+        </section>
+        {emailError && (
+          <p className="mt-2 text-sm text-red-600">{emailError}</p>
+        )}
+        {emailSent && !emailError && (
+          <p className="mt-2 text-sm text-primary">
+            Te enviamos el ebook a {email}. Revisá también la carpeta de spam.
+          </p>
+        )}
+
+        {autoDownloadUrl && (
+          <iframe
+            src={autoDownloadUrl}
+            title="Descarga automática del ebook"
+            style={{ display: "none" }}
+          />
+        )}
       </div>
     </div>
   );
