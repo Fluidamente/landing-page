@@ -1,8 +1,12 @@
 import * as yup from "yup";
 const contactSchema = yup.object().shape({
-  name: yup.string().required("El nombre es requerido"),
-  email: yup.string().email().required("El email es requerido"),
-  message: yup.string().required("La mensaje es requerido"),
+  name: yup.string().trim().required("Contame tu nombre"),
+  email: yup
+    .string()
+    .trim()
+    .email("Revisá el email, parece incompleto")
+    .required("Necesito un email para responderte"),
+  message: yup.string().trim().required("Escribí tu consulta"),
 });
 
 export { contactSchema };

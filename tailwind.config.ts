@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import { nextui } from "@nextui-org/react";
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,12 +10,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      screens: {
+        // Igual que STAGE_QUERY en src/lib/site.ts
+        stage: {
+          raw: "(min-width: 1024px) and (min-height: 940px), (min-width: 1280px) and (min-height: 890px), (min-width: 1440px) and (min-height: 840px)",
+        },
       },
       colors: {
+        // Marca Fluidamente
         primary: {
           light: "#82ABA5",
           DEFAULT: "#247E7F",
@@ -23,12 +26,39 @@ const config: Config = {
         secondary: "#3B4B62",
         tertiary: "#97D1DB",
         white: "#FFFFFF",
+        // Roles del rediseño
+        deep: "#1A5E66",
+        teal: "#247E7F",
+        sage: "#82ABA5",
+        aqua: "#97D1DB",
+        slate: "#3B4B62",
+        ground: "#F2F6F4",
+        ink: "#142530",
+      },
+      fontSize: {
+        small: ["var(--step-small)", { lineHeight: "1.45" }],
+        body: ["var(--step-body)", { lineHeight: "1.55" }],
+        lead: ["var(--step-lead)", { lineHeight: "1.35" }],
+        head: [
+          "var(--step-head)",
+          { lineHeight: "1", letterSpacing: "-0.04em" },
+        ],
+        display: [
+          "var(--step-display)",
+          { lineHeight: "0.88", letterSpacing: "-0.05em" },
+        ],
+      },
+      spacing: {
+        margin: "var(--margin)",
+        section: "var(--section)",
       },
     },
     fontFamily: {
-      raleway: ["var(--font-raleway)"],
-      poppins: ["var(--font-poppins)"],
-      chillax: ["Chillax", "sans-serif"],
+      sans: ["var(--font-schibsted)", "system-ui", "sans-serif"],
+      // Alias heredados: todo el sitio usa una sola familia
+      raleway: ["var(--font-schibsted)", "system-ui", "sans-serif"],
+      poppins: ["var(--font-schibsted)", "system-ui", "sans-serif"],
+      chillax: ["var(--font-schibsted)", "system-ui", "sans-serif"],
     },
   },
   plugins: [nextui()],

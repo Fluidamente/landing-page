@@ -4,13 +4,7 @@ import Link from "next/link";
 
 export default function PendingPage() {
   return (
-    <div
-      className="flex min-h-screen flex-col items-center justify-center"
-      style={{
-        background:
-          "linear-gradient(0deg, rgba(255, 223, 186, 1) 0%, rgba(255, 249, 230, 1) 65%, rgba(255, 255, 255, 1) 100%)",
-      }}
-    >
+    <div className="flex min-h-[100svh] flex-col items-center justify-center bg-ground">
       <div className="mb-6 flex justify-center text-6xl">
         <MoreCircle size="6rem" className="text-warning" />
       </div>

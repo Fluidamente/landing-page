@@ -73,9 +73,8 @@ export default function SuccessPage() {
 
   if (isValidating) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-yellow-100">
+      <div className="flex min-h-[100svh] flex-col items-center justify-center bg-yellow-100">
         <div className="text-center">
-          <div className="mb-4 text-4xl">⏳</div>
           <h1 className="mb-4 text-4xl font-bold text-yellow-800">
             Validando pago...
           </h1>
@@ -98,7 +97,7 @@ export default function SuccessPage() {
 
   if (!paymentId) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-red-100">
+      <div className="flex min-h-[100svh] flex-col items-center justify-center bg-red-100">
         <h1 className="mb-4 text-4xl font-bold text-red-800">
           No se encontró información del pago
         </h1>
@@ -120,7 +119,7 @@ export default function SuccessPage() {
 
   if (!isValid) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-orange-100">
+      <div className="flex min-h-[100svh] flex-col items-center justify-center bg-orange-100">
         <h1 className="mb-4 text-4xl font-bold text-orange-800">
           Pago pendiente
         </h1>
@@ -141,13 +140,7 @@ export default function SuccessPage() {
   }
 
   return (
-    <div
-      className="flex min-h-screen flex-col items-center justify-center p-8"
-      style={{
-        background:
-          "linear-gradient(0deg, rgba(130,171,165,1) 0% , rgba(240,255,245,1) 65% , rgba(255,255,255,1) 100%)",
-      }}
-    >
+    <div className="flex min-h-[100svh] flex-col items-center justify-center bg-ground p-8">
       <div className="max-w-2xl text-center">
         <div className="mb-6 flex justify-center text-6xl">
           <TickCircle size="6rem" className="text-primary" />
@@ -156,14 +149,8 @@ export default function SuccessPage() {
           ¡Compra Exitosa!
         </h2>
 
-        <section
-          className="mb-8 rounded-2xl border border-primary/20 bg-white/70 p-6 text-left shadow-sm backdrop-blur-sm"
-          aria-live="polite"
-        >
+        <section className="mb-8 bg-white p-6 text-left" aria-live="polite">
           <header className="mb-4 flex items-center gap-3">
-            <div className="animate-pulse text-2xl" aria-hidden="true">
-              📥
-            </div>
             <h3 className="text-lg font-semibold text-secondary">
               Tu Ebook ya está acá (y algunas palabras antes de empezar)
             </h3>

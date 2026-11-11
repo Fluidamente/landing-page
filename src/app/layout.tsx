@@ -1,27 +1,22 @@
 import React, { PropsWithChildren } from "react";
 import type { Metadata } from "next";
-import { Raleway, Poppins } from "next/font/google";
+import { Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./utils/providers";
 import NavbarApp from "./_components/NavbarApp";
+import RevealObserver from "./_components/RevealObserver";
 
-const poppins = Poppins({
-  subsets: ["latin-ext"],
-  weight: "400",
-  style: "normal",
-  variable: "--font-poppins",
-});
-
-const raleway = Raleway({
-  subsets: ["latin-ext"],
-  weight: "400",
-  style: "normal",
-  variable: "--font-raleway",
+const schibsted = Schibsted_Grotesk({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "600", "800"],
+  variable: "--font-schibsted",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Fluidamente",
-  description: "Cursos de psicologia y atención online",
+  title: "Fluidamente · Terapia online con el Lic. Sergio Lépori",
+  description:
+    "Terapia psicológica online por videollamada con el Lic. Sergio Lépori, cursos y el ebook El camino consciente del duelo.",
   openGraph: {
     images: [
       {
@@ -34,12 +29,20 @@ export const metadata: Metadata = {
   },
 };
 
+// Marca <html> con .js antes de pintar: las entradas animadas solo
+// ocultan contenido cuando hay JavaScript para mostrarlo.
+const jsFlag = `document.documentElement.classList.add('js')`;
+
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="es">
-      <body className={`${poppins.variable} ${raleway.variable} font-sans`}>
+    <html lang="es" className={schibsted.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
+      </head>
+      <body className="bg-ground font-sans text-ink">
         <NavbarApp />
         <Providers>{children}</Providers>
+        <RevealObserver />
       </body>
     </html>
   );

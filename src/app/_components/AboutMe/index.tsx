@@ -1,87 +1,85 @@
 "use client";
-import { Button, Image } from "@nextui-org/react";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import React from "react";
+import React, { CSSProperties, useRef, useState } from "react";
+import { whatsappLink } from "@/lib/site";
+import PuzzlePortrait from "./PuzzlePortrait";
 
 const AboutMe: React.FC = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+  const trackRef = useRef<HTMLElement>(null);
+  const [fitted, setFitted] = useState(false);
+  const fit = () => setFitted(true);
 
-    handleResize(); // Check initial screen size
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
   return (
-    <div
-      className=" mx-auto mt-10 flex  w-[80%] max-w-[1200px] flex-col items-center justify-center bg-primary-light p-10"
-      style={{
-        borderRadius: "40px",
-      }}
+    <section
+      id="sobre-mi"
+      ref={trackRef}
+      aria-labelledby="sobre-mi-title"
+      className="relative overflow-x-clip bg-slate text-white stage:h-[230svh]"
     >
-      <div className=" align-items-center grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2">
-        <div className="max-w- flex flex-col  font-poppins font-normal ">
-          <h2 className=" pb-4 text-center text-3xl  font-semibold text-white md:text-justify">
-            Sobre mí...
-          </h2>
-          <p className="text-md text-justify text-white lg:text-lg">
-            Soy Sergio Lépori, Licenciado en Psicología graduado en 2015.
-          </p>
-          <p className="text-md text-justify text-white lg:text-lg">
-            Desde entonces trabajo con personas que buscan equilibrar su salud
-            mental y que esto influya de manera positiva en su vida.
-          </p>
-          <p className="text-md text-justify text-white lg:text-lg">
-            En cada sesión intentamos enfocarnos en el presente, evaluando las
-            emociones y situaciones actuales, así como las experiencias pasadas
-            que puedan influir en la actualidad.
-          </p>
-          <p className="text-md text-justify text-white lg:text-lg">
-            Para ello es necesario trabajar sobre el modo en que nos
-            relacionamos con nosotros mismos y con los demás, promoviendo la
-            aceptación y la comprensión del desarrollo que tuvimos a largo de
-            nuestra vida, reevaluando y modificando ciertos aspectos que generen
-            malestar.
-          </p>
-          <p className="text-md text-justify text-white lg:text-lg">
-            El fin de todo esto es encontrar bienestar en el Aquí y Ahora,
-            fomentar un crecimiento continuo y funcional en la vida diaria.
-          </p>
-        </div>
-        <div className="flex flex-col items-center justify-start ">
-          <Image
-            src="/images/about_me_image.png"
-            width={450}
-            height={800}
-            style={{
-              borderRadius: isMobile ? "40px" : "0px 40px 40px 0px",
-            }}
-            alt="profile picture"
-          />
-          <Button
-            className=" mt-8 w-[250px] p-6 font-poppins text-xl"
-            variant="solid"
-            color="primary"
-            style={{
-              filter: "drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.50))",
-            }}
-          >
-            <Link
-              href="https://wa.me/5493756417801?text=Buenas%20tardes%20Lic.%20Lepori%2C%20me%20interesa%20concertar%20una%20sesi%C3%B3n."
-              target="_blank"
+      <div className="wrap grid grid-cols-1 gap-x-6 gap-y-10 py-section lg:grid-cols-12 lg:grid-rows-[1fr_auto_1fr] stage:sticky stage:top-16 stage:h-[calc(100svh-64px)] stage:py-10">
+        <div className="lg:col-span-7 lg:row-span-3 lg:row-start-1 lg:flex lg:h-full lg:items-center">
+          <figure className="relative mx-auto w-full lg:max-w-[600px] stage:max-w-[calc((100svh-150px)*0.97)]">
+            <PuzzlePortrait fitted={fitted} trackRef={trackRef} />
+            <figcaption
+              className={`puzzle-caption mt-4 text-lead font-extrabold leading-tight tracking-[-0.02em] lg:absolute lg:bottom-[2%] lg:right-0 lg:mt-0 lg:w-[26%] lg:text-right ${fitted ? "is-done" : ""}`}
             >
-              Agendar una sesión
-            </Link>
-          </Button>
+              {fitted
+                ? "Ahora sí, empecemos."
+                : "La última pieza la ponemos juntos."}
+            </figcaption>
+          </figure>
+        </div>
+
+        <h2
+          id="sobre-mi-title"
+          className="heading order-first max-w-[11ch] lg:order-none lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:self-end"
+          data-reveal
+        >
+          Trabajar en el aquí y ahora
+        </h2>
+
+        <div className="flex flex-col gap-8 lg:col-span-4 lg:col-start-9 lg:row-start-2">
+          <div data-reveal style={{ "--i": 1 } as CSSProperties}>
+            <h3 className="text-lead font-extrabold tracking-[-0.03em]">
+              Quién soy
+            </h3>
+            <p className="mt-2">
+              Soy Sergio Lépori, Licenciado en Psicología, graduado en 2015.
+              Desde entonces acompaño a personas que buscan equilibrar su salud
+              mental y que eso se note, de manera positiva, en su vida diaria.
+            </p>
+          </div>
+          <div data-reveal style={{ "--i": 2 } as CSSProperties}>
+            <h3 className="text-lead font-extrabold tracking-[-0.03em]">
+              Cómo trabajo
+            </h3>
+            <p className="mt-2">
+              En cada sesión nos enfocamos en el presente: las emociones y
+              situaciones actuales, y las experiencias pasadas que todavía
+              influyen. Trabajamos el modo en que te relacionás con vos y con
+              los demás, para modificar lo que genera malestar.
+            </p>
+          </div>
+        </div>
+
+        <div
+          className="lg:col-span-4 lg:col-start-9 lg:row-start-3 lg:self-start"
+          data-reveal
+          style={{ "--i": 3 } as CSSProperties}
+        >
+          <a
+            href={whatsappLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-aqua"
+            onMouseEnter={fit}
+            onFocus={fit}
+            onClick={fit}
+          >
+            Agendar una sesión
+          </a>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
