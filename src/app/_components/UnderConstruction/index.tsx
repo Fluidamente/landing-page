@@ -1,25 +1,33 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-const UnderConstruction = () => {
+const UnderConstruction = ({ title = "Estamos armando esta sección" }) => {
   return (
-    <div
-      className="flex min-h-screen flex-col py-5"
-      style={{
-        background:
-          "linear-gradient(0deg, rgba(130,171,165,1) 0% , rgba(240,255,245,1) 65% , rgba(255,255,255,1) 100%)",
-      }}
-    >
-      <div className="w-full lg:container lg:mx-auto">
-        <div className="flex flex-col items-center justify-center text-2xl md:text-3xl ">
-          <h2 className="text-center font-poppins text-4xl text-primary-dark">
-            SITIO EN CONSTRUCCIÓN
-          </h2>
-          <div className="order-1 col-span-3 py-10 md:order-2">
-            <img src={"images/logo-hq-variable3.png"} alt="error" />
-          </div>
+    <main className="wrap flex min-h-[calc(100svh-64px)] flex-col items-start justify-center gap-8 bg-ground py-section md:flex-row md:items-center md:justify-between">
+      <div className="max-w-[34ch]">
+        <h1 className="heading">{title}</h1>
+        <p className="mt-5">
+          Muy pronto vas a encontrar acá cursos y talleres por temática.
+          Mientras tanto, podés escribirme o conocer el ebook.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/#contacto" className="btn btn-teal">
+            Escribirme
+          </Link>
+          <Link href="/ebook" className="btn bg-aqua text-ink">
+            Ver el ebook
+          </Link>
         </div>
       </div>
-    </div>
+      <Image
+        src="/images/isotipo.png"
+        width={420}
+        height={380}
+        alt=""
+        className="h-auto w-[60vw] max-w-[420px]"
+      />
+    </main>
   );
 };
 

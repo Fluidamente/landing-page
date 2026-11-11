@@ -60,11 +60,21 @@ export default function PuzzlePortrait({ fitted, trackRef }: Props) {
       return clamp((vh * 0.92 - r.top) / (vh * 0.75));
     };
 
+    // Evita reescribir transform/opacity de piezas que ya llegaron a su
+    // posición final en el frame anterior — en PCs con GPU integrada,
+    // tocar el estilo de las 20 piezas en cada frame (aunque no cambien)
+    // es lo que generaba el salteo visible.
+    // 0 = en movimiento, 1 = asentada (local>=1), -1 = dispersa (local<=0)
+    const restState = new Array(pieces.length).fill(0);
+
     const paint = (p: number) => {
       pieces.forEach((pc, i) => {
         const g = groups.current[i];
         if (!g) return;
         const local = clamp((p - pc.delay) / 0.45);
+        const resting = local >= 1 ? 1 : local <= 0 ? -1 : 0;
+        if (resting !== 0 && resting === restState[i]) return;
+        restState[i] = resting;
         const e = easeOut(local);
         const k = 1 - e;
         if (pc.id === MISSING) {
@@ -80,11 +90,13 @@ export default function PuzzlePortrait({ fitted, trackRef }: Props) {
     // Inercia: cada frame la posición "current" persigue el target del
     // scroll con damping, en vez de saltar directo al valor crudo — da el
     // efecto de encaje fluido en lugar de pasos discretos por evento.
-    const SMOOTH = 0.14;
+    // SMOOTH más alto y un epsilon más laxo acortan cuántos frames de
+    // repintado de las 20 piezas corren después de cada scroll.
+    const SMOOTH = 0.22;
     const tick = () => {
       const t = target();
       current += (t - current) * SMOOTH;
-      const settled = Math.abs(t - current) < 0.0004;
+      const settled = Math.abs(t - current) < 0.0025;
       if (settled) current = t;
       paint(current);
       raf = settled ? 0 : requestAnimationFrame(tick);

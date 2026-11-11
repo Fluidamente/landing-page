@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import MercadoPagoConfig, { Preference } from "mercadopago";
+import { EBOOK_PRICE, EBOOK_TITLE } from "@/lib/site";
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN!,
@@ -30,9 +31,9 @@ export async function POST(request: Request) {
         items: [
           {
             id: "ebook-001",
-            title: "Ebook El camino consciente del duelo",
+            title: `Ebook ${EBOOK_TITLE}`,
             quantity: 1,
-            unit_price: 29990,
+            unit_price: EBOOK_PRICE,
             currency_id: "ARS",
           },
         ],

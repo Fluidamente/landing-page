@@ -1,5 +1,581 @@
-@import url("https://api.fontshare.com/v2/css?f[]=chillax@400,500,600&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ------------------------------------------------------------------
+   Fluidamente — tokens
+   Un solo motivo: la pieza de rompecabezas del isotipo (una perilla
+   circular unida a un borde). Aparece como pestaña, máscara de foto,
+   muesca del cupón, viñeta y forma del botón.
+------------------------------------------------------------------- */
+:root {
+  --deep: #1a5e66;
+  --teal: #247e7f;
+  --sage: #82aba5;
+  --aqua: #97d1db;
+  --slate: #3b4b62;
+  --ground: #f2f6f4;
+  --paper: #ffffff;
+  --ink: #142530;
+
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --step-display: clamp(3rem, 0.5rem + 12vw, 11rem);
+
+  --margin: clamp(16px, 2.5vw, 32px);
+  --section: clamp(96px, 12vw, 200px);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-size: var(--step-body);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--aqua);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--aqua);
+  outline-offset: 3px;
+}
+
+@layer components {
+  .wrap {
+    padding-inline: var(--margin);
+  }
+
+  .display {
+    font-size: var(--step-display);
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: -0.05em;
+  }
+
+  .heading {
+    font-size: var(--step-head);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  /* Botón: la perilla estirada (totalmente redonda) */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    min-height: 52px;
+    padding: 0 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: var(--step-body);
+    line-height: 1;
+    white-space: nowrap;
+    transition:
+      transform 160ms var(--ease-out),
+      background-color 200ms ease,
+      color 200ms ease;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-aqua {
+    background: var(--aqua);
+    color: var(--ink);
+  }
+  .btn-teal {
+    background: var(--teal);
+    color: var(--paper);
+  }
+  .btn-ink {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-aqua:hover {
+      background: var(--paper);
+    }
+    .btn-teal:hover {
+      background: var(--deep);
+    }
+    .btn-ink:hover {
+      background: var(--slate);
+    }
+  }
+  .btn[disabled],
+  .btn[aria-busy="true"] {
+    opacity: 0.7;
+    cursor: progress;
+  }
+
+  /* Enlace de texto con subrayado que crece */
+  .link {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+    transition:
+      text-decoration-color 200ms ease,
+      color 200ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .link:hover {
+      text-decoration-color: transparent;
+    }
+  }
+
+  /* Viñeta: la perilla a tamaño de texto */
+  .knob-dot {
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 999px;
+    background: currentColor;
+    flex: none;
+  }
+
+  /* Máscara de pieza para fotos.
+     .piece-frame define el contenedor; .piece recorta la foto con
+     una perilla arriba al centro y el cuerpo rectangular debajo. */
+  .piece-frame {
+    container-type: inline-size;
+  }
+  .piece {
+    --d: 30cqw;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    -webkit-mask:
+      url("/shapes/circle.svg") 50% 0 / var(--d) var(--d) no-repeat,
+      url("/shapes/rect.svg") 50% 100% / 100% calc(100% - var(--d) * 0.5)
+        no-repeat;
+    mask:
+      url("/shapes/circle.svg") 50% 0 / var(--d) var(--d) no-repeat,
+      url("/shapes/rect.svg") 50% 100% / 100% calc(100% - var(--d) * 0.5)
+        no-repeat;
+  }
+  .piece-left {
+    -webkit-mask:
+      url("/shapes/circle.svg") 0 50% / var(--d) var(--d) no-repeat,
+      url("/shapes/rect.svg") 100% 50% / calc(100% - var(--d) * 0.5) 100%
+        no-repeat;
+    mask:
+      url("/shapes/circle.svg") 0 50% / var(--d) var(--d) no-repeat,
+      url("/shapes/rect.svg") 100% 50% / calc(100% - var(--d) * 0.5) 100%
+        no-repeat;
+  }
+
+  /* Pestaña de carpeta: la perilla como lomo redondeado */
+  .tab {
+    border-radius: 999px 999px 0 0;
+  }
+
+  .folder-tab {
+    left: var(--at-m, 0%);
+    transition: transform 200ms var(--ease-out);
+  }
+  @media (min-width: 768px) {
+    .folder-tab {
+      left: var(--at, 0%);
+    }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .folder-tab:hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  /* Carpetas del hero: el cuerpo de color es decorativo (el link real es
+     la pestaña de arriba, siempre clickeable), así que en touch también
+     queda angosto por defecto para no taparle el video. En dispositivos
+     con mouse se abre al pasar por encima o enfocar su pestaña. */
+  .folder-stack {
+    height: 26px;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .folder-stack {
+      height: 22px;
+      transition: height 360ms var(--ease-out);
+    }
+    .folder-stack:hover,
+    .folder-stack:focus-within {
+      height: 72px;
+    }
+  }
+
+  .nav-link {
+    position: relative;
+    padding-block: 6px;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--aqua);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 240ms var(--ease-out);
+  }
+  .nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+  }
+
+  .mobile-menu.is-open {
+    animation: rise 280ms var(--ease-out) both;
+  }
+
+  /* ¿Qué te trae? — índice con vista previa */
+  .temas {
+    scrollbar-width: none;
+  }
+  .tema-btn {
+    color: var(--slate);
+    transition: color 200ms ease;
+  }
+  .tema-btn[aria-pressed="true"] {
+    color: var(--ink);
+  }
+  .tema-dot {
+    opacity: 0;
+    transform: scale(0.4);
+    transition:
+      opacity 200ms ease,
+      transform 240ms var(--ease-out);
+  }
+  .tema-btn[aria-pressed="true"] .tema-dot {
+    opacity: 1;
+    transform: none;
+  }
+  .tema-img {
+    opacity: 0;
+    transition: opacity 240ms ease;
+  }
+  .tema-img.is-active {
+    opacity: 1;
+  }
+  .tema-piece,
+  .tema-socket {
+    -webkit-clip-path: url(#tema-piece);
+    clip-path: url(#tema-piece);
+  }
+  .tema-socket {
+    transform: translate(2.5%, 3%);
+  }
+  .tema-piece {
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform 520ms var(--ease-out);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tema-piece {
+      transform: none;
+    }
+  }
+  .tema-copy {
+    animation: rise 420ms var(--ease-out) both;
+  }
+
+  /* Servicios */
+  .tile-media {
+    transition: transform 500ms var(--ease-out);
+  }
+  .tile-arrow {
+    display: inline-block;
+    transition: transform 240ms var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tile:hover .tile-media {
+      transform: scale(1.04);
+    }
+    .tile:hover .tile-arrow {
+      transform: translateX(6px);
+    }
+  }
+
+  /* Testimonios: notas de papel */
+  .slip {
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform 400ms var(--ease-out);
+  }
+  @media (min-width: 1280px) {
+    .slip-wrap {
+      margin-top: var(--drop, 0);
+    }
+    .slip-wrap:not(:last-child) {
+      margin-right: -32px;
+    }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .slip-wrap:hover {
+      position: relative;
+      z-index: 2;
+    }
+    .slip-wrap:hover .slip {
+      transform: rotate(0deg) translateY(-6px);
+    }
+  }
+
+  /* Contacto: cupón para recortar */
+  .perforation {
+    position: relative;
+    height: 28px;
+  }
+  .notch {
+    position: absolute;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: var(--ground);
+  }
+  .notch-a {
+    left: -14px;
+  }
+  .notch-b {
+    right: -14px;
+  }
+  .dots {
+    position: absolute;
+    inset: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .dots > span {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--ground);
+  }
+  @media (min-width: 1024px) {
+    .perforation {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 46%;
+      width: 28px;
+      height: auto;
+      transform: translateX(-50%);
+    }
+    .notch-a,
+    .notch-b {
+      left: 0;
+      right: auto;
+    }
+    .notch-a {
+      top: -14px;
+    }
+    .notch-b {
+      top: auto;
+      bottom: -14px;
+    }
+    .dots {
+      inset: 28px 0;
+      flex-direction: column;
+    }
+  }
+  .field {
+    border-radius: 0;
+    transition: background-color 200ms ease;
+  }
+  .field:hover {
+    background-color: rgb(255 255 255 / 0.14);
+  }
+  .field:focus {
+    background-color: rgb(255 255 255 / 0.18);
+    outline: 3px solid var(--aqua);
+    outline-offset: 0;
+  }
+  .field[aria-invalid="true"] {
+    outline: 3px solid var(--aqua);
+    outline-offset: 0;
+  }
+
+  /* Servicios: tres piezas que encajan */
+  .svc-piece > g {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 360ms var(--ease-out);
+  }
+  .svc-seam {
+    fill: none;
+    stroke: var(--aqua);
+    stroke-width: 5;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+    transition: transform 360ms var(--ease-out);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .svc-piece:focus-visible {
+    outline: none;
+  }
+  .svc-piece:focus-visible > .svc-seam,
+  .svc-piece:focus-visible > g {
+    transform: translateY(-8px);
+  }
+  .svc-piece:focus-visible > g {
+    transform: translateY(-8px);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .svc-piece:hover > g,
+    .svc-piece:hover > .svc-seam {
+      transform: translateY(-8px) rotate(-1.5deg);
+    }
+  }
+  .svc-link {
+    transition: color 200ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .svc-link:hover {
+      color: var(--deep);
+    }
+  }
+
+  /* Sobre mí: retrato rompecabezas */
+  .puzzle-piece {
+    transform-box: fill-box;
+    transform-origin: center;
+    will-change: transform;
+  }
+  .puzzle-piece.is-loose[data-fitted="true"] {
+    transition:
+      transform 900ms var(--ease-out),
+      opacity 300ms ease;
+  }
+  .puzzle-seam {
+    fill: none;
+    stroke: var(--slate);
+    stroke-width: 1.6;
+    vector-effect: non-scaling-stroke;
+  }
+  .puzzle-hole {
+    fill: #2c3a4d;
+  }
+  .puzzle-caption {
+    transition: color 300ms ease;
+  }
+  .puzzle-caption.is-done {
+    color: var(--aqua);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Movimiento
+------------------------------------------------------------------- */
+
+/* Entradas: solo se ocultan si hay JS (html.js) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 900ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+.js [data-reveal="scale"] {
+  transform: scale(0.96);
+}
+.js [data-reveal="scale"].is-in {
+  transform: none;
+}
+
+/* Portada: título y carpetas suben al cargar */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes folder-in {
+  from {
+    transform: translateY(80px);
+  }
+  to {
+    transform: none;
+  }
+}
+.hero-rise {
+  animation: rise 900ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+.folder {
+  animation: folder-in 1100ms var(--ease-out) both;
+  animation-delay: calc(200ms + var(--i, 0) * 70ms);
+}
+
+/* Foto en movimiento lento */
+@keyframes drift {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.1) translate3d(-1.5%, -1%, 0);
+  }
+}
+.drift {
+  animation: drift 18s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js [data-reveal],
+  .js [data-reveal="scale"] {
+    transform: none;
+    transition: opacity 300ms ease;
+  }
+  .hero-rise,
+  .folder {
+    animation: none;
+  }
+  .drift {
+    animation: none;
+  }
+}

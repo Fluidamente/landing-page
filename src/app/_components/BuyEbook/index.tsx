@@ -1,24 +1,30 @@
 "use client";
 import {
   Button,
-  Image,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { CSSProperties, useState } from "react";
+import { EBOOK_PRICE, EBOOK_TITLE, formatPrice } from "@/lib/site";
 
 interface BuyEbookProps {
   linkToPage?: boolean;
+  /** En /ebook el título es el h1 de la página */
+  asPage?: boolean;
 }
 
-const BuyEbook: React.FC<BuyEbookProps> = ({ linkToPage = false }) => {
+const BuyEbook: React.FC<BuyEbookProps> = ({
+  linkToPage = false,
+  asPage = false,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const Title = asPage ? "h1" : "h2";
 
   const handleConfirmBuy = async () => {
     setIsRedirecting(true);
@@ -41,63 +47,94 @@ const BuyEbook: React.FC<BuyEbookProps> = ({ linkToPage = false }) => {
 
   return (
     <section
-      id="buy_ebook_section"
-      className="mx-auto mt-10 flex w-[80%] max-w-[1200px] flex-col items-center justify-center bg-primary-light p-10"
-      style={{ borderRadius: "40px" }}
+      id="ebook"
+      aria-labelledby="ebook-title"
+      className="wrap overflow-hidden py-section"
     >
-      <div className="align-items-center grid grid-cols-1 justify-items-center gap-8 md:grid-cols-2">
-        <div className="flex flex-col items-center justify-start">
-          <Image
-            src="/images/el_camino_consciente_del_duelo.jpeg"
-            width={450}
-            height={800}
-            alt='Ebook "El camino consciente del duelo" cover image'
-          />
-        </div>
-        <div className="flex flex-col items-center font-poppins font-normal">
-          <h2 className="pb-4 text-center text-3xl font-semibold text-white md:text-start">
-            Ebook &quot;El camino consciente del duelo&quot;
-          </h2>
-          <p className="text-md text-start text-white">
-            &quot;El camino consciente del duelo&quot; es para quienes están
-            atravesando una pérdida y no saben por dónde empezar.
-          </p>
-          <p className="text-md text-start text-white">
-            No promete alivio inmediato, pero sí acompañarte a entender lo que
-            te pasa, ponerle nombre al dolor y encontrar un modo más amable de
-            transitarlo.
-          </p>
-          <p className="text-md text-start text-white">
-            Si necesitás orientación clara, contención y un espacio que respete
-            tus tiempos, este ebook puede ayudarte hoy.
-          </p>
+      <div className="grid grid-cols-1 items-center gap-x-6 gap-y-14 lg:grid-cols-12">
+        <div className="order-2 lg:order-1 lg:col-span-6">
+          <Title id="ebook-title" className="heading" data-reveal>
+            {EBOOK_TITLE}
+          </Title>
+          <div
+            className="mt-6 flex max-w-[46ch] flex-col gap-3"
+            data-reveal
+            style={{ "--i": 1 } as CSSProperties}
+          >
+            <p className="text-lead">
+              Para quienes están atravesando una pérdida y no saben por dónde
+              empezar.
+            </p>
+            <p>
+              No promete alivio inmediato, pero sí acompañarte a entender lo que
+              te pasa, ponerle nombre al dolor y encontrar un modo más amable de
+              transitarlo.
+            </p>
+            <p>
+              Si necesitás orientación clara, contención y un espacio que
+              respete tus tiempos, este ebook puede ayudarte hoy.
+            </p>
+          </div>
 
-          {linkToPage ? (
-            <Button
-              as={Link}
-              href="/ebook"
-              className="mt-8 w-[250px] p-6 font-poppins text-xl"
-              variant="solid"
-              color="primary"
-              style={{
-                filter: "drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.50))",
-              }}
-            >
-              Comprar libro
-            </Button>
-          ) : (
-            <Button
-              className="mt-8 w-[250px] p-6 font-poppins text-xl"
-              variant="solid"
-              color="primary"
-              style={{
-                filter: "drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.50))",
-              }}
-              onClick={() => setIsModalOpen(true)}
-            >
-              Comprar
-            </Button>
-          )}
+          <div
+            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4"
+            data-reveal
+            style={{ "--i": 2 } as CSSProperties}
+          >
+            <p className="text-head font-extrabold">
+              {formatPrice(EBOOK_PRICE)}
+            </p>
+            {linkToPage ? (
+              <Link href="/ebook" className="btn btn-teal">
+                Comprar el ebook
+              </Link>
+            ) : (
+              <button
+                type="button"
+                className="btn btn-teal"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Comprar el ebook
+              </button>
+            )}
+          </div>
+          <ul
+            className="mt-10 flex flex-col gap-2 font-semibold"
+            data-reveal
+            style={{ "--i": 3 } as CSSProperties}
+          >
+            <li className="flex items-center gap-3">
+              <span className="knob-dot text-teal" aria-hidden />
+              Tareas vivenciales para transformar la pérdida
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="knob-dot text-teal" aria-hidden />
+              PDF que se descarga al confirmar el pago
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="knob-dot text-teal" aria-hidden />
+              Pago seguro con Mercado Pago
+            </li>
+          </ul>
+        </div>
+
+        <div className="order-1 flex justify-center lg:order-2 lg:col-span-6 lg:justify-end">
+          <div className="relative flex justify-center">
+            <div
+              aria-hidden
+              className="ebook-disc aspect-square w-[86vw] rounded-full bg-teal md:w-[min(64vh,60vw)] lg:w-[min(64vh,46vw)]"
+              data-reveal="scale"
+            />
+            <div className="ebook-cover absolute bottom-[4%] aspect-[512/800] w-[57vw] md:w-[min(42vh,39vw)] lg:w-[min(42vh,30vw)]">
+              <Image
+                src="/images/el_camino_consciente_del_duelo.jpeg"
+                alt={`Tapa del ebook ${EBOOK_TITLE}, de Sergio Lépori`}
+                fill
+                sizes="(min-width: 768px) 20vw, 44vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -105,38 +142,41 @@ const BuyEbook: React.FC<BuyEbookProps> = ({ linkToPage = false }) => {
         isOpen={isModalOpen}
         onOpenChange={setIsModalOpen}
         placement="center"
-        backdrop="blur"
+        backdrop="opaque"
+        classNames={{ base: "rounded-none font-sans text-ink" }}
       >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Confirmar redirección
+              <ModalHeader className="flex flex-col gap-1 text-lead font-extrabold">
+                Vas a pagar con Mercado Pago
               </ModalHeader>
               <ModalBody>
                 <p>
-                  Vas a ser redirigido a la aplicación de MercadoPago para
-                  completar el pago de forma segura.
+                  Te llevamos a Mercado Pago para completar el pago de forma
+                  segura.
                 </p>
-                <p className="text-sm text-default-500">
-                  Una vez finalizado, volverás automáticamente a este sitio.
+                <p>
+                  Cuando termines, volvés a este sitio y la descarga empieza
+                  sola.
                 </p>
               </ModalBody>
               <ModalFooter>
                 <Button
-                  color="default"
+                  radius="full"
                   variant="light"
                   onPress={onClose}
-                  disabled={isRedirecting}
+                  isDisabled={isRedirecting}
                 >
                   Cancelar
                 </Button>
                 <Button
-                  color="primary"
+                  radius="full"
+                  className="bg-teal font-semibold text-white"
                   onPress={handleConfirmBuy}
                   isLoading={isRedirecting}
                 >
-                  Confirmar y continuar
+                  Continuar al pago
                 </Button>
               </ModalFooter>
             </>
